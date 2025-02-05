@@ -1,9 +1,8 @@
 import { prisma } from "@/lib/prisma"
 import { FastifyReply, FastifyRequest } from "fastify"
 import { z } from "zod"
-import { hash } from "bcryptjs"
 import { RegisterUseCase } from "@/use-cases/register"
-import { PrimaUsersRepository } from "@/repositories/prisma/prisma-users-repository"
+import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository"
 import { UserAlreadyExistsError } from "@/use-cases/erros/use-already-exists-error"
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
@@ -18,7 +17,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
 
     try {
-        const UsersRepository = new PrimaUsersRepository()
+        const UsersRepository = new PrismaUsersRepository()
         const registerUseCase = new RegisterUseCase(UsersRepository)
 
         await registerUseCase.execute({
