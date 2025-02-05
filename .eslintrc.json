@@ -5,6 +5,7 @@
     "rules": {
         "no-console": "off",
         "no-unused-vars": "off",
-        "camalcase": "off"
+        "camalcase": "off",
+        "no-useless-constructor": "off"
     }
 }
