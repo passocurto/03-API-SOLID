@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify"
 import { z } from "zod"
 import { hash } from "bcryptjs"
 import { RegisterUseCase } from "@/use-cases/register"
-import { PrimaUsersRepository } from "@/repositories/prisma-users-repository"
+import { PrimaUsersRepository } from "@/repositories/prisma/prisma-users-repository"
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
     const registerBodySschema =
