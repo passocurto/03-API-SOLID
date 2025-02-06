@@ -6,17 +6,20 @@ import { UserAlreadyExistsError } from './erros/use-already-exists-error'
 import { beforeEach } from 'node:test'
 
 
-let usersRepository: InMemoryUsersRepository
-let sut: RegisterUseCase
+// let usersRepository: InMemoryUsersRepository
+// let sut: RegisterUseCase
 
 describe('Register Use Case', () => {
 
-    beforeEach(() => {
-        usersRepository = new InMemoryUsersRepository()
-        sut = new RegisterUseCase(usersRepository)
-    })
+    // beforeEach(() => {
+    //     usersRepository = new InMemoryUsersRepository()
+    //     sut = new RegisterUseCase(usersRepository)
+    // })
 
     it('should be able to register', async () => {
+
+        const usersRepository = new InMemoryUsersRepository()
+        const sut = new RegisterUseCase(usersRepository)
 
         const { user } = await sut.execute({
             name: 'John Doe',
@@ -29,6 +32,9 @@ describe('Register Use Case', () => {
     })
 
     it('should hash user password upon registration', async () => {
+
+        const usersRepository = new InMemoryUsersRepository()
+        const sut = new RegisterUseCase(usersRepository)
 
         const { user } = await sut.execute({
             name: 'John Doe',
@@ -46,6 +52,9 @@ describe('Register Use Case', () => {
 
 
     it('should not be able to register with same email twice', async () => {
+
+        const usersRepository = new InMemoryUsersRepository()
+        const sut = new RegisterUseCase(usersRepository)
 
         const email = 'passocurto@gmail.com'
 
