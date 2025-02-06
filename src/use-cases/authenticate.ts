@@ -1,8 +1,8 @@
 
-import { compare } from 'bcryptjs';
 import { UsersRepository } from '@/repositories/users-repository';
 import { InvalidCredintialsError } from './erros/Invalid-credencials-error';
 import { User } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 
 interface AuthenticateUseCaseRequest {
@@ -23,7 +23,7 @@ export class AuthenticateUseCase {
             throw new InvalidCredintialsError();
         }
 
-        const isPasswordCorrect = await compare(password, user.password_hash ? user.password_hash : '')
+        const isPasswordCorrect = await bcrypt.compare(password, user.password_hash ? user.password_hash : '')
         if (!isPasswordCorrect) {
             throw new InvalidCredintialsError();
         }
