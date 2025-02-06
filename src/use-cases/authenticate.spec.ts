@@ -3,14 +3,21 @@ import { AuthenticateUseCase } from './authenticate'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { hash } from 'bcryptjs'
 import { InvalidCredintialsError } from './erros/Invalid-credencials-error'
+import { beforeEach } from 'node:test'
 
+
+let usersRepository: InMemoryUsersRepository
+let sut: AuthenticateUseCase
 
 
 describe('Athenticate Use Case', () => {
 
+    beforeEach(() => {
+        usersRepository = new InMemoryUsersRepository
+        sut = new AuthenticateUseCase(usersRepository)
+    })
+
     it('should be able to register', async () => {
-        const usersRepository = new InMemoryUsersRepository()
-        const sut = new AuthenticateUseCase(usersRepository)
 
         await usersRepository.create({
             name: 'John Doe',
@@ -29,8 +36,7 @@ describe('Athenticate Use Case', () => {
 
 
     it('should not be able to authenticate with wrong email', async () => {
-        const usersRepository = new InMemoryUsersRepository()
-        const sut = new AuthenticateUseCase(usersRepository)
+
 
         await expect(() =>
             sut.execute(
@@ -43,8 +49,6 @@ describe('Athenticate Use Case', () => {
 
 
     it('should be able to authenticate with wrong password', async () => {
-        const usersRepository = new InMemoryUsersRepository()
-        const sut = new AuthenticateUseCase(usersRepository)
 
         await usersRepository.create({
             name: 'John Doe',
